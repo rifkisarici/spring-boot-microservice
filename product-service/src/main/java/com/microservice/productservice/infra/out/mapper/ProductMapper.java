@@ -6,13 +6,13 @@ import com.microservice.productservice.infra.out.entity.ProductEntity;
 import java.util.List;
 
 public class ProductMapper {
-    private static final ProductMapper productMapper= new ProductMapper();
+    private static final ProductMapper productMapper = new ProductMapper();
     public static ProductMapper getInstance(){
         return productMapper;
     }
 
     public ProductViewModel toViewModel(ProductEntity productEntities) {
-        return new ProductViewModel(productEntities.getId(),productEntities.getDescription(),productEntities.getName(),productEntities.getPrice());
+        return new ProductViewModel(productEntities.getId(),productEntities.getName(),productEntities.getDescription(),productEntities.getPrice());
     }
 
     public List<ProductViewModel> toViewModel(List<ProductEntity> productEntities) {

@@ -6,7 +6,7 @@ import com.microservice.productservice.domain.Product;
 import java.util.List;
 
 public interface ProductPort {
-    void createProduct(Product product);
+    String createProduct(Product product);
     List<ProductViewModel> getAllProduct();
 
 }

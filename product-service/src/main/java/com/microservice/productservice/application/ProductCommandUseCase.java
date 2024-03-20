@@ -15,9 +15,9 @@ public class ProductCommandUseCase {
     private final ProductPort productPort;
 
 
-    public void createProduct(ProductCommand productCommand) {
+    public String createProduct(ProductCommand productCommand) {
         Product product=productCommand.toDomainEntity();
-        productPort.createProduct(product);
+        return productPort.createProduct(product);
     }
 
     public List<ProductViewModel> getAllProduct() {

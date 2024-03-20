@@ -5,25 +5,20 @@ import microservice.orderservice.dto.OrderRequest;
 import microservice.orderservice.service.OrderService;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.annotation.Id;
-import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.junit.jupiter.Testcontainers;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 
 @SpringBootTest
-@Testcontainers
 @AutoConfigureMockMvc
 public class OrderControllerTest {
     @Mock
@@ -55,4 +50,11 @@ public class OrderControllerTest {
         assertEquals(expectedResponse, actualResponse);
     }
 
+
+    @Test
+    void fallbackMethod() {
+        Exception exception=new Exception();
+        String actualResponse = orderController.fallbackMethod(exception);
+        assert (actualResponse != null);
+    }
 }

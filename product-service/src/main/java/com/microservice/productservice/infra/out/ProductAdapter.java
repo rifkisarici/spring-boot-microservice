@@ -19,7 +19,7 @@ import java.util.List;
 public class ProductAdapter implements ProductPort {
     private final ProductRepository productRepository;
     @Override
-    public void createProduct(Product product) {
+    public String createProduct(Product product) {
         ProductEntity productEntity=ProductEntity.builder()
                 .name(product.getName())
                 .description(product.getDescription())
@@ -27,6 +27,7 @@ public class ProductAdapter implements ProductPort {
                 .build();
         productRepository.save(productEntity);
         log.info("product {} is saved",productEntity.getId());
+        return "successful";
     }
 
     @Override

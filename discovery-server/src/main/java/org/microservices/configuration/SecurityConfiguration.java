@@ -19,14 +19,6 @@ public class SecurityConfiguration{
     @Value("${eureka.password}")
     private String password;
 
-    /*@Bean
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.inMemoryAuthentication()
-                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .withUser(username).password(password)
-                .authorities("USER");
-    }
-    */
 
     @Bean
     public InMemoryUserDetailsManager userDetailsService() {

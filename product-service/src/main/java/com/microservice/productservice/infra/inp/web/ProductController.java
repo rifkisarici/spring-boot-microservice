@@ -17,8 +17,8 @@ public class ProductController {
 
     @PostMapping(value = "")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createProduct(@RequestBody ProductCommand productCommand){
-        productCommandUseCase.createProduct(productCommand);
+    public String createProduct(@RequestBody ProductCommand productCommand){
+        return productCommandUseCase.createProduct(productCommand);
     }
 
 
@@ -28,9 +28,4 @@ public class ProductController {
         return productCommandUseCase.getAllProduct();
     }
 
-    @GetMapping(value =  "/deneme")
-    @ResponseStatus(HttpStatus.OK)
-    public String deneme(){
-        return "selam deneme";
-    }
 }

@@ -1,11 +1,9 @@
 package org.microservices.controller;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.microservices.event.OrderPlacedEvent;
 import org.microservices.service.NotificationService;
 import org.springframework.kafka.annotation.KafkaListener;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 
