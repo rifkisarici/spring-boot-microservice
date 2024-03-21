@@ -18,4 +18,6 @@ public class ProductMapper {
     public List<ProductViewModel> toViewModel(List<ProductEntity> productEntities) {
         return productEntities.stream().map(this::toViewModel).toList();
     }
+
+
 }

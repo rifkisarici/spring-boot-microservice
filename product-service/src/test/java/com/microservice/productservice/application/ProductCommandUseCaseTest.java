@@ -1,6 +1,7 @@
 package com.microservice.productservice.application;
 
 import com.microservice.productservice.application.command.ProductCommand;
+import com.microservice.productservice.application.command.UpdateProductCommand;
 import com.microservice.productservice.application.port.ProductPort;
 import com.microservice.productservice.application.query.ProductViewModel;
 import com.microservice.productservice.domain.Product;
@@ -31,6 +32,8 @@ public class ProductCommandUseCaseTest {
         when(productCommand.getName()).thenReturn("name");
         when(productCommand.getPrice()).thenReturn("price");
 
+        ProductViewModel productViewModel=new ProductViewModel("id","name","description","price");
+
         Product product=Product.builder()
                 .id("-1")
                 .name("name")
@@ -40,14 +43,14 @@ public class ProductCommandUseCaseTest {
 
         when(productCommand.toDomainEntity()).thenReturn(product);
 
-        String expectedResponse = "successful";
-        when(productPort.createProduct(product)).thenReturn(expectedResponse);
+
+        when(productPort.createProduct(product)).thenReturn(productViewModel);
 
         // Act
-        String actualResponse = productCommandUseCase.createProduct(productCommand);
+        ProductViewModel actualResponse = productCommandUseCase.createProduct(productCommand);
 
         // Assert
-        assertEquals(expectedResponse, actualResponse);
+        assertEquals(productViewModel, actualResponse);
     }
 
     @Test
@@ -58,4 +61,32 @@ public class ProductCommandUseCaseTest {
         assertEquals(List.of(productViewModel), actualResponse);
     }
 
+    @Test
+    void updateProduct() {
+        UpdateProductCommand updateProductCommand = mock(UpdateProductCommand.class);
+        when(updateProductCommand.getId()).thenReturn("id");
+        when(updateProductCommand.getName()).thenReturn("name");
+        when(updateProductCommand.getDescription()).thenReturn("description");
+        when(updateProductCommand.getPrice()).thenReturn("price");
+
+        Product product=new Product("id","name","description","price");
+
+        ProductViewModel productViewModel=new ProductViewModel("id","name","description","price");
+
+        when(updateProductCommand.toDomainEntity()).thenReturn(product);
+
+        when(productPort.updateProduct(product)).thenReturn(productViewModel);
+
+        ProductViewModel actualResponse = productCommandUseCase.updateProduct(updateProductCommand);
+
+        assertEquals(productViewModel, actualResponse);
+    }
+
+    @Test
+    void getAllProductByName() {
+        ProductViewModel productViewModel=new ProductViewModel("id","name","description","price");
+        when(productPort.getAllProductByName("name")).thenReturn(List.of(productViewModel));
+        List<ProductViewModel> actualResponse = productCommandUseCase.getAllProductByName("name");
+        assertEquals(List.of(productViewModel), actualResponse);
+    }
 }

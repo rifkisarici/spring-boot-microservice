@@ -19,7 +19,7 @@ import java.util.List;
 public class ProductAdapter implements ProductPort {
     private final ProductRepository productRepository;
     @Override
-    public String createProduct(Product product) {
+    public ProductViewModel createProduct(Product product) {
         ProductEntity productEntity=ProductEntity.builder()
                 .name(product.getName())
                 .description(product.getDescription())
@@ -27,12 +27,27 @@ public class ProductAdapter implements ProductPort {
                 .build();
         productRepository.save(productEntity);
         log.info("product {} is saved",productEntity.getId());
-        return "successful";
+        return ProductMapper.getInstance().toViewModel(productEntity);
     }
 
     @Override
     public List<ProductViewModel> getAllProduct() {
         return ProductMapper.getInstance().toViewModel(productRepository.findAll());
+    }
+
+    @Override
+    public ProductViewModel updateProduct(Product product) {
+        ProductEntity productEntity=productRepository.findById(product.getId()).orElseThrow();
+        productEntity.setName(product.getName());
+        productEntity.setDescription(product.getDescription());
+        productEntity.setPrice(product.getPrice());
+        productRepository.save(productEntity);
+        return ProductMapper.getInstance().toViewModel(productEntity);
+    }
+
+    @Override
+    public List<ProductViewModel> getAllProductByName(String name) {
+        return ProductMapper.getInstance().toViewModel(productRepository.findAllByName(name));
     }
 
 
